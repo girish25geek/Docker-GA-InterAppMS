@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>MovieFlix</title>
+</head>
+<body>
+  <h1>🎬 Welcome to MovieFlix!</h1>
+  <p>Fetching user data...</p>
+
+  <script>
+    fetch('http://localhost:5000/users')
+      .then(res => res.json())
+      .then(data => {
+        const p = document.createElement('pre');
+        p.textContent = JSON.stringify(data, null, 2);
+        document.body.appendChild(p);
+      })
+      .catch(err => {
+        console.error(err);
+        document.body.innerHTML += '<p>Failed to load user data.</p>';
+      });
+  </script>
+</body>
+</html>

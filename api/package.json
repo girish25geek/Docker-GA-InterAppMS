@@ -1,0 +1,15 @@
+{
+  "name": "movieflix-api",
+  "version": "1.0.0",
+  "description": "Node.js API for MovieFlix microservice app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Girish",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.8.0"
+  }
+}
