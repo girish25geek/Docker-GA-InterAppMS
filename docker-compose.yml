@@ -1,0 +1,38 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - webnet
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=${MONGO_URL}
+    depends_on:
+      - user-db
+    networks:
+      - webnet
+
+  user-db:
+    image: mongo:5
+    volumes:
+      - user_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    networks:
+      - webnet
+
+volumes:
+  user_data:
+
+networks:
+  webnet:

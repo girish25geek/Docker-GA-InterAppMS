@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movie Stream 🎬</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Movie Stream 🎬</h1>
+  <button onclick="loadMovies()">Load Movies</button>
+  <p class="error" id="error"></p>
+  <ul id="result"></ul>
+
+  <script>
+    async function loadMovies() {
+      const resultEl = document.getElementById('result');
+      const errorEl = document.getElementById('error');
+      resultEl.innerHTML = '';
+      errorEl.textContent = '';
+
+      try {
+        const res = await fetch('/api/movies');
+        if (!res.ok) throw new Error('Failed to fetch movies');
+
+        const movies = await res.json();
+        if (!Array.isArray(movies)) throw new Error('Unexpected response format');
+
+        movies.forEach(movie => {
+          const li = document.createElement('li');
+          li.textContent = `${movie.title} (${movie.year})`;
+          resultEl.appendChild(li);
+        });
+
+      } catch (err) {
+        errorEl.textContent = err.message;
+      }
+    }
+  </script>
+</body>
+</html>

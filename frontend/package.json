@@ -1,0 +1,8 @@
+{
+  "name": "movie-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "echo 'Static content only. Use Docker to serve.'",
+    "build": "echo 'Assume built static files in /public'"
+  }
+}
